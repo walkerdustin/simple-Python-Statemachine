@@ -10,7 +10,7 @@ class Statemachine(object): # there should be only one Instance of this class
     # Statemachine.variable = 'something else' 
     # this variable can then be used in an if statement for transitions
     variable = 'something'
-    PARAMETER = 42 
+    PARAMETER_1 = 42 
     counterN = 0 
     
     ###############################################   internal class 
@@ -19,7 +19,7 @@ class Statemachine(object): # there should be only one Instance of this class
         def __init__(self, name:str): 
             self.name = name 
             states[name] = self          #add this state (self) to the collection (dictionary) of states with the key being its name  
- 
+
         def run(self): 
             pass 
     ############################################## 
@@ -45,7 +45,7 @@ class Statemachine(object): # there should be only one Instance of this class
             print(".....") 
             sleep(1) 
             # State Transition 
-            Statemachine.switchStateTo("Step 1")    # the self refers to the Statemachine (statemachine object) 
+            Statemachine.switchStateTo("Step 1")   
         tempState.run = run0 # overriding the run() method of state0 
         ############################################## State 1 
         tempState = self.State("Step 1") 
@@ -56,6 +56,8 @@ class Statemachine(object): # there should be only one Instance of this class
             if(True): 
                 Statemachine.switchStateTo("Step 2")
         tempState.run = run1 
+        tempState.entry = lambda : print('I am an entry function')
+        tempState.exit  = lambda : print('I am an exit function') 
         ############################################## State 2 
         tempState = self.State("Step 2") 
         def run2(): 
@@ -83,5 +85,5 @@ if __name__ == '__main__':
     statemachine = Statemachine() 
     while True: 
         statemachine.runLoop()
-       
         sleep(1 / 1_000_000) # sleep for a microsecond to prevent unnecessary cpu utilization
+    
